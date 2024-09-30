@@ -1,91 +1,60 @@
-//Declaración de variable
-const myNodelist = null;
+// Declaración de variables
+let myNodelist = null;
 let i = 0;
-let clsoe = null;
+let close=null;
 let list = null;
-let span = null;
+let span = null; 
 let txt = null;
 let div = null;
 
-//Declaración de funciones
+// Declaración de funciones
 const crearBotonesX = () => {
-  //Cuerpo principal del programa
-  myNodelist = document.getElementsByTagName("LI");
+  for (i = 0; i < myNodelist.length; i++)
+  myNodelist[i].innerHTML+=`<span class="close">x</span>`;
+}
 
-  for (i = 0; i < myNodelist.length; i++) {
-    /*span = document.createElement("SPAN");
-    txt = document.createTextNode("\u00D7");
-    span.className = "close";
-    span.appendChild(txt);
-    myNodelist[i].appendChild(span);
-    */
-    myNodelist[i].innerHTML += '<span class ="close"></span>';
-  }
-};
-
-// Click on a close button to hide the current list item
-close = document.getElementsByClassName("close");
-
-const registrarEventosEliminarTarea = () => {
+const registrarEventosEliminarTarea=()=> {
   for (i = 0; i < close.length; i++) {
-    close[i].onclick = function () {
+    close[i].addEventListener("click",
+    function() {
       div = this.parentElement;
-      div.style.display = "none";
-    };
+      div.remove();
+    }
+    , "false");
   }
-};
-// Add a "checked" symbol when clicking on a list item
-list = document.querySelector("ul");
+}
 
-const registrarEventoMarcaTareaCompletada = () => {
-  list.addEventListener(
-    "click",
-    function (ev) {
-      if (ev.target.tagName === "LI") {
-        ev.target.classList.toggle("checked");
-      }
-    },
-    false
-  );
-};
+const registrarEventoMarcaTareaCompletada=()=> {
+  list = document.querySelector('#myUL');
+  list.addEventListener("click", function (ev) {
+    if (ev.target.tagName === "LI") {
+      ev.target.classList.toggle("checked");
+    }
+  },false);
+}
 
 // Create a new list item when clicking on the "Add" button
-const newElement = () => {
-  // var li = document.createElement("li");
-  var inputValue = document.getElementById("myInput").value;
-  // var t = document.createTextNode(inputValue);
-  // li.appendChild(t);
-  if (inputValue === "") {
+const nuevoElemento = () => {
+  const inputValue = document.querySelector("#myInput").value;
+  if (inputValue === '') {
     alert("You must write something!");
   } else {
-    document.getElementById("myUL").appendChild(li);
+    document.getElementById("myUL").innerHTML+=`<li>${inputValue}<span class="close">x</span></li>`;
   }
   document.getElementById("myInput").value = "";
-
-  // var span = document.createElement("SPAN");
-  // var txt = document.createTextNode("\u00D7");
-  // span.className = "close";
-  // span.appendChild(txt);
-  // li.appendChild(span);
-
-  for (i = 0; i < close.length; i++) {
-    close[i].onclick = function () {
-      var div = this.parentElement;
-      div.style.display = "none";
-    };
-  }
-};
-
-const main = () => {
-  myNodelist = document.getElementsByTagName(ITEM);
-  crearBotonesX();
-
-  close = document.getElementsByClassName(close);
+  close =  document.querySelectorAll(".close");
   registrarEventosEliminarTarea();
+}
 
-  list = document.querySelector(list);
+const main=()=>{
+  myNodelist =  document.querySelectorAll("LI");
+  crearBotonesX();
+  close =  document.querySelectorAll(".close");
+  registrarEventosEliminarTarea();
   registrarEventoMarcaTareaCompletada();
+  const elementoSpan = document.querySelector(".addBtn");
+  elementoSpan.addEventListener("click", nuevoElemento, "false");
+}
+// Cuerpo principal del programa
+main();
 
-  const elemntoSpan = document.querySelector("addBtn");
-  elemntoSpan.addEventListener(click, newElement, false);
-};
