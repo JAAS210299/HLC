@@ -1,3 +1,25 @@
+class Todo{
+    // Atributos
+    arrayObjetos = null;
+    // Constructor y atributos
+    constructor(datosIniciales){
+        this.stringDeArrayDeObjetos = localStorage.getItem('lista');
+        this.inicializaDatos(datosIniciales);
+    }
+    // Resto de Métodos
+    inicializaDatos = (arrayObjetosFetch) =>{
+        if(this.stringDeArrayDeObjetos){
+            alert("Cargando datos desde LocalStorage!");
+            this.arrayObjetos = JSON.parse(this.stringDeArrayDeObjetos);
+        }else{
+            alert("No hay datos en LocalStorage, se procederá a cargarlos desde https://jsonplaceholder.typicode.com/todos");
+            this.arrayObjetos=arrayDeObjetosFetch.map(obj)=>{
+                return {posicion:obj.id, descripcion:obj.title, estadoCompletado:obj.completed}
+        });
+        localStorage.setItem('lista', JSON.stringify(this.arrayObjetos));
+    }
+}
+
 
 // Constante con el objeto ráiz del DOM
 let myNodelist = null;
@@ -113,8 +135,7 @@ const main=()=>{
     const elementoSpan = document.querySelector(".addBtn");
     elementoSpan.addEventListener("click", nuevoElemento, "false");
 }
-
-
+}
 /*
 function nuevoElemento()
 {
